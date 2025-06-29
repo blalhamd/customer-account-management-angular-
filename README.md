@@ -1,27 +1,58 @@
-# CAMSAngular
+# Customer Account Management System (CAMS) - Angular Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+## Overview
 
-## Development server
+This repository contains the Angular frontend application for the Customer Account Management System (CAMS). It provides a modern, responsive, and interactive user interface for managing customer accounts, transactions, and other banking operations. This application consumes the RESTful APIs exposed by the CAMS backend system.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Key Features
 
-## Code scaffolding
+*   **User Authentication & Authorization:** Secure login and role-based access control using JWT.
+*   **Client Management:** Functionality to register new clients, view client details, and update client information.
+*   **Account Management:** Interface for opening various account types (Current, Savings, Fixed Deposit, Joint Accounts) and managing their statuses.
+*   **Transaction Handling:** Enables users to perform deposits, withdrawals, and transfers, and view transaction history.
+*   **Responsive Design:** Optimized for various screen sizes, providing a seamless experience across desktop and mobile devices.
+*   **Intuitive User Interface:** Built with Angular components and Bootstrap for a consistent and user-friendly experience.
+*   **Error Handling:** Robust error handling and user feedback mechanisms.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
 
-## Build
+*   **Frontend Framework:** Angular (v17.3.12)
+*   **State Management:** RxJS (v7.8.0)
+*   **UI Framework:** Bootstrap (v5.3.6)
+*   **Authentication:** JWT (JSON Web Tokens) with `@auth0/angular-jwt`
+*   **Icons:** Font Awesome (v6.7.2)
+*   **Alerts/Notifications:** SweetAlert2 (v11.14.5)
+*   **HTTP Client:** Angular\`s `HttpClient` with custom interceptors for JWT and error handling.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technical Highlights
 
-## Running unit tests
+*   **Modular Architecture:** The application is organized into feature modules, promoting code reusability and maintainability.
+*   **Route Guards:** Implemented authentication and role-based guards to protect routes and control access.
+*   **HTTP Interceptors:** Used for automatically attaching JWT tokens to outgoing requests and handling global error responses.
+*   **Reactive Forms:** Utilizes Angular Reactive Forms for robust form validation and management.
+*   **Component-Based Design:** Follows Angular\`s component-based architecture for building reusable UI elements.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Key Use Cases
 
-## Running end-to-end tests
+*   **Client Onboarding:** Registering new clients with their personal and contact details.
+*   **Account Opening:** Clients or administrators can open different types of bank accounts.
+*   **Fund Transfers:** Performing secure money transfers between accounts.
+*   **Viewing Account Statements:** Accessing detailed transaction history for any account.
+*   **User Profile Management:** Updating personal information and managing security settings.
+*   **Administrator Operations:** Managing users, clients, and accounts with appropriate permissions.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## API Documentation
 
-## Further help
+This Angular application interacts with a separate backend API. The documentation for the backend API can be found in its respective repository (e.g., `https://github.com/blalhamd/Customer-Account-Management-System-.git` ).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**Base API URL:** (This would typically be configured in the Angular environment files, e.g., `src/environments/environment.ts`)
+
+Example API Endpoints consumed by this frontend:
+
+*   `/api/Authentications/login` (POST): User login to obtain JWT.
+*   `/api/Clients` (POST, GET, PUT, DELETE): Client registration and management.
+*   `/api/Accounts` (GET, PUT, POST): Account opening and status updates.
+*   `/api/Transactions` (POST, GET): Performing and viewing transactions.
+
+For detailed request/response schemas, permissions, and other API-specific information, please refer to the backend API documentation.
+
