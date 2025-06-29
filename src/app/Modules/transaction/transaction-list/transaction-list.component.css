@@ -1,0 +1,9 @@
+td.transaction-type {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  border-radius: 0.45rem;
+  text-align: center;
+  min-width: 110px;
+}

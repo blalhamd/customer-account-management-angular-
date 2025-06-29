@@ -1,0 +1,55 @@
+<!-- navbar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient bg-primary text-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">CAMS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            *ngIf="isLogin && (canViewAdmin() || canViewClient())">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/client/list']" routerLinkActive="router-link-active"
+            *ngIf="isLogin && canViewAdmin()">Clients</a>
+        </li>
+        <!-- Dropdown for Open Account -->
+        <li class="nav-item dropdown" *ngIf="isLogin && canViewClient()">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Open Account
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/account/fixed-deposit/open']">Fixed Deposit</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/account/current/open']">Current</a></li>
+            <!-- <li><a class="dropdown-item" [routerLink]="['/account/saving/open']">Saving</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/account/disjoint/open']">Disjoint</a></li> -->
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/account/currents']" routerLinkActive="router-link-active"
+            *ngIf="isLogin && canViewAdmin()">Currents</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/account/fixed-deposits']" routerLinkActive="router-link-active"
+            *ngIf="isLogin && canViewAdmin()">Fixed-Deposits</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/client/transactions']" routerLinkActive="router-link-active"
+            *ngIf="isLogin && canViewClient()">Transactions</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/auth/login']" *ngIf="!isLogin">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="isLogin">
+          <button class="nav-link btn btn-link" id="logout" (click)="logOut()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,88 @@
+<!-- details.component.html -->
+<div class="card my-4 shadow-lg border-0 rounded-4 animate__animated animate__fadeIn">
+  <div class="card-header bg-gradient bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+    <h4 class="mb-0 fw-bold text-uppercase">Account Details</h4>
+    <a class="btn btn-sm btn-outline-light rounded-pill px-3" [routerLink]="['/account/currents']"
+      aria-label="Back to accounts">
+      <i class="bi bi-arrow-left me-1"></i> Back
+    </a>
+  </div>
+
+  <div class="card-body p-4">
+    <!-- Error -->
+    <div *ngIf="errorMessage.length > 0" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+
+    <!-- No data -->
+    <div *ngIf="!account && !errorMessage" class="text-center text-muted py-5">
+      <i class="bi bi-info-circle display-5 d-block mb-3 text-primary"></i>
+      <span class="fw-medium">No account selected.</span>
+    </div>
+
+    <!-- Account Details -->
+    <div *ngIf="account" class="row g-4">
+      <div class="col-12 col-md-6">
+        <div class="card h-100 border-0 shadow-sm rounded-4 bg-light animate__animated animate__fadeInUp">
+          <div class="card-body p-4">
+            <h5 class="card-title fw-bold mb-3 text-center text-primary">Account Information</h5>
+            <dl class="row mb-0">
+              <dt class="col-sm-5 fw-semibold text-muted">Account Number</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.accountNumber | slice:0:5 }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Client ID</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.clientId | slice:0:8 }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Currency</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.currencyType }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Balance</dt>
+              <dd class="col-sm-7 text-end text-primary fw-bold fs-5">{{ account.balance |
+                currency:account.currencyType:'symbol':'1.2-2' }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Branch</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.branch }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div
+          class="card h-100 border-0 shadow-sm rounded-4 bg-light animate__animated animate__fadeInUp animate__delay-1s">
+          <div class="card-body p-4">
+            <h5 class="card-title fw-bold mb-3 text-center text-primary">Status & Limits</h5>
+            <dl class="row mb-0">
+              <dt class="col-sm-5 fw-semibold text-muted">Status</dt>
+              <dd class="col-sm-7 text-end">
+                <span class="badge rounded-pill px-3 py-2 fs-6" [ngClass]="{
+                    'bg-success bg-opacity-75': account.accountStatus === 'Active',
+                    'bg-warning bg-opacity-75 text-dark': account.accountStatus === 'Pending' || account.accountStatus === 'InActive',
+                    'bg-danger bg-opacity-75': account.accountStatus === 'Closed' || account.accountStatus === 'Suspended'
+                  }" data-bs-toggle="tooltip" [title]="account.accountStatus">
+                  {{ account.accountStatus }}
+                </span>
+              </dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Type</dt>
+              <dd class="col-sm-7 text-end">
+                <span class="badge rounded-pill px-3 py-2 fs-6" [ngClass]="{
+                    'bg-info bg-opacity-75 text-dark': !account.isBusinessAccount,
+                    'bg-secondary bg-opacity-75': account.isBusinessAccount
+                  }" data-bs-toggle="tooltip" [title]="account.isBusinessAccount ? 'Business' : 'Personal'">
+                  {{ account.isBusinessAccount ? 'Business' : 'Personal' }}
+                </span>
+              </dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Minimum Balance</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.minimumBalance |
+                currency:account.currencyType:'symbol':'1.2-2' }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Max Withdrawal</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.maximumWithdrawal |
+                currency:account.currencyType:'symbol':'1.2-2' }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Monthly Fee</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.monthlyFee |
+                currency:account.currencyType:'symbol':'1.2-2' }}</dd>
+              <dt class="col-sm-5 fw-semibold text-muted">Transaction Limit</dt>
+              <dd class="col-sm-7 text-end text-primary fw-medium">{{ account.transactionLimit }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

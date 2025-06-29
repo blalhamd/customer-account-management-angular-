@@ -1,0 +1,43 @@
+<div class="transaction-result-container">
+  <div class="transaction-card">
+    <div class="transaction-header">
+      <div class="icon-container" [ngClass]="result.transactionType.toString()| lowercase">
+        <ng-container [ngSwitch]="result.transactionType">
+          <i *ngSwitchCase="'Deposit'" class="fa fa-arrow-down deposit"></i>
+          <i *ngSwitchCase="'Withdrawal'" class="fa fa-arrow-up withdrawal"></i>
+          <i *ngSwitchCase="'Transfer'" class="fa fa-exchange-alt transfer"></i>
+          <i *ngSwitchCase="'Payment'" class="fa fa-credit-card payment"></i>
+          <i *ngSwitchCase="'Query'" class="fa fa-search query"></i>
+          <i *ngSwitchCase="'Fee'" class="fa fa-percent fee"></i>
+          <i *ngSwitchDefault class="fa fa-money-bill"></i>
+        </ng-container>
+      </div>
+      <div>
+        <h2 class="transaction-type">{{ result.transactionType }}</h2>
+        <span class="transaction-id">Transaction ID: <b>{{ result.id|slice:0:5 }}</b></span>
+      </div>
+    </div>
+    <div class="transaction-details">
+      <div class="detail-row">
+        <span>Account ID:</span>
+        <span>{{ result.accountId|slice:0:5 }}</span>
+      </div>
+      <div class="detail-row">
+        <span>Amount:</span>
+        <span class="amount">{{ result.amount | currency }}</span>
+      </div>
+      <div class="detail-row" *ngIf="result.discount">
+        <span>Discount:</span>
+        <span class="discount">{{ result.discount | currency }}</span>
+      </div>
+      <div class="detail-row total-row">
+        <span>Total:</span>
+        <span class="total">{{ result.total | currency }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!result" class="no-data">
+  <i class="fa fa-exclamation-circle"></i>
+  <span>No transaction data to display.</span>
+</div>

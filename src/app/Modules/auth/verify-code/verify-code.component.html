@@ -1,0 +1,36 @@
+<div class="code-verification-container">
+  <div class="code-verification-card animated-fade">
+    <div class="text-center mb-4">
+      <i class="fas fa-shield-check code-verification-icon"></i>
+      <h4 class="mb-1">Enter Verification Code</h4>
+      <p class="text-muted mb-0">We've sent a code to your email. Please enter it below to continue.</p>
+    </div>
+    <form [formGroup]="model" (ngSubmit)="onSubmit(model)">
+      <div class="form-group mb-3">
+        <label for="verificationCode" class="form-label">Verification Code</label>
+        <div class="input-group">
+          <!-- <span class="input-group-text"><i class="fas fa-key"></i></span> -->
+          <input id="verificationCode" type="text" formControlName="code" class="form-control" placeholder="Enter code"
+            autocomplete="one-time-code">
+        </div>
+        <div class="alert alert-danger py-1 px-2 mt-1 mb-0" *ngIf="code?.errors && code?.touched">
+          <small *ngIf="code?.getError('required')">Code is required</small>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg w-100 mb-2" [disabled]="isLoading || model.invalid">
+        <span *ngIf="!isLoading">Verify</span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin me-2"></i>
+          Processing...
+        </span>
+      </button>
+    </form>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+      {{ errorMessage }}
+    </div>
+    <div class="text-center mt-3">
+      <span class="text-muted">Didn't receive the code?</span>
+      <a class="text-link ms-1" (click)="resendCode()">Resend</a>
+    </div>
+  </div>
+</div>

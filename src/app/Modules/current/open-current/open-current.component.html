@@ -1,0 +1,73 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center text-primary mb-4">Open a Current Account</h2>
+
+          <form [formGroup]="model" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Currency Type -->
+            <div class="mb-3">
+              <label for="currencyType" class="form-label">Currency Type</label>
+              <select id="currencyType" formControlName="currencyType" class="form-select"
+                [ngClass]="{ 'is-invalid': model.get('currencyType')?.touched && model.get('currencyType')?.invalid }">
+                <option value="" disabled selected>Select currency</option>
+                <option *ngFor="let currency of currencyTypes" [value]="currency">
+                  {{ currency }}
+                </option>
+              </select>
+              <div *ngIf="model.get('currencyType')?.touched && model.get('currencyType')?.invalid"
+                class="invalid-feedback">
+                Currency is required.
+              </div>
+            </div>
+
+            <!-- Balance -->
+            <div class="mb-3">
+              <label for="balance" class="form-label">Initial Balance</label>
+              <input type="number" id="balance" class="form-control" formControlName="balance"
+                placeholder="Enter initial balance"
+                [ngClass]="{ 'is-invalid': model.get('balance')?.touched && model.get('balance')?.invalid }" />
+              <div *ngIf="model.get('balance')?.touched && model.get('balance')?.invalid" class="invalid-feedback">
+                Balance must be 0 or more.
+              </div>
+            </div>
+
+            <!-- Minimum Balance -->
+            <!-- <div class="mb-3">
+              <label for="minimumBalance" class="form-label">Minimum Required Balance</label>
+              <input type="number" id="minimumBalance" class="form-control" formControlName="minimumBalance"
+                placeholder="Enter minimum required balance"
+                [ngClass]="{ 'is-invalid': model.get('minimumBalance')?.touched && model.get('minimumBalance')?.invalid }" />
+              <div *ngIf="model.get('minimumBalance')?.touched && model.get('minimumBalance')?.invalid"
+                class="invalid-feedback">
+                Minimum balance must be 0 or more.
+              </div>
+            </div> -->
+
+            <!-- Is Business Account -->
+            <div class="form-check mb-4">
+              <input type="checkbox" class="form-check-input" id="isBusinessAccount"
+                formControlName="isBusinessAccount" />
+              <label class="form-check-label" for="isBusinessAccount">
+                Is this a business account?
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="isLoading">
+                {{ isLoading ? 'Submitting...' : 'Submit' }}
+              </button>
+            </div>
+
+            <!-- Error Message
+            <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+              {{ errorMessage }}
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

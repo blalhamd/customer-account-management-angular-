@@ -1,0 +1,175 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title mb-4 text-center">Edit Client</h2>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Personal Information -->
+        <div class="mb-4">
+          <h5>Personal Information</h5>
+          <div class="row">
+
+            <!-- Full Name -->
+            <div class="col-md-6 mb-3">
+              <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+              <input id="fullName" class="form-control" formControlName="fullName" placeholder="John Doe"
+                aria-required="true"
+                [class.is-invalid]="getControl('fullName')?.invalid && getControl('fullName')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('fullName')?.errors?.['required']">Full name is required
+              </div>
+            </div>
+
+            <!-- SSN -->
+            <div class="col-md-6 mb-3">
+              <label for="ssn" class="form-label">SSN <span class="text-danger">*</span></label>
+              <input id="ssn" class="form-control" formControlName="sSN" placeholder="12345678901234"
+                aria-required="true" [class.is-invalid]="getControl('sSN')?.invalid && getControl('sSN')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('sSN')?.errors && getControl('sSN')?.touched">
+                <div *ngIf="getControl('sSN')?.errors?.['required']">SSN is required</div>
+                <div *ngIf="getControl('sSN')?.errors?.['invalidSSN']">SSN must be 14 digits</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-4">
+          <h5>Address</h5>
+          <div formGroupName="address" class="row">
+            <div class="col-md-6 mb-3">
+              <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+              <input id="country" class="form-control" formControlName="country" placeholder="Country"
+                aria-required="true"
+                [class.is-invalid]="getControl('address.country')?.invalid && getControl('address.country')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('address.country')?.errors?.['required']">Country is
+                required</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+              <input id="city" class="form-control" formControlName="city" placeholder="City" aria-required="true"
+                [class.is-invalid]="getControl('address.city')?.invalid && getControl('address.city')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('address.city')?.errors?.['required']">City is required
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="street" class="form-label">Street <span class="text-danger">*</span></label>
+              <input id="street" class="form-control" formControlName="street" placeholder="Street" aria-required="true"
+                [class.is-invalid]="getControl('address.street')?.invalid && getControl('address.street')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('address.street')?.errors?.['required']">Street is
+                required</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="zipCode" class="form-label">Zip Code <span class="text-danger">*</span></label>
+              <input id="zipCode" class="form-control" formControlName="zipCode" placeholder="Zip Code"
+                aria-required="true"
+                [class.is-invalid]="getControl('address.zipCode')?.invalid && getControl('address.zipCode')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('address.zipCode')?.errors?.['required']">Zip code is
+                required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="mb-4">
+          <h5>Additional Information</h5>
+          <div class="row">
+            <!-- Nationality -->
+            <div class="col-md-6 mb-3">
+              <label for="nationality" class="form-label">Nationality <span class="text-danger">*</span></label>
+              <input id="nationality" class="form-control" formControlName="nationality" placeholder="Nationality"
+                aria-required="true"
+                [class.is-invalid]="getControl('nationality')?.invalid && getControl('nationality')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('nationality')?.errors?.['required']">Nationality is
+                required</div>
+            </div>
+
+            <!-- Gender -->
+            <div class="col-md-6 mb-3">
+              <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+              <select id="gender" class="form-select" formControlName="gender" aria-required="true"
+                [class.is-invalid]="getControl('gender')?.invalid && getControl('gender')?.touched">
+                <option value="" disabled>Select gender</option>
+                <option *ngFor="let g of genderOptions" [value]="g">{{ g }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="getControl('gender')?.errors?.['required']">Gender is required</div>
+            </div>
+
+            <!-- Birth Date -->
+            <div class="col-md-6 mb-3">
+              <label for="birthDate" class="form-label">Birth Date <span class="text-danger">*</span></label>
+              <input id="birthDate" type="date" class="form-control" formControlName="birthDate" aria-required="true"
+                [class.is-invalid]="getControl('birthDate')?.invalid && getControl('birthDate')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('birthDate')?.errors?.['required']">Birth date is required
+              </div>
+            </div>
+
+            <!-- Job Title -->
+            <div class="col-md-6 mb-3">
+              <label for="jobTitle" class="form-label">Job Title <span class="text-danger">*</span></label>
+              <input id="jobTitle" class="form-control" formControlName="jobTitle" placeholder="Job Title"
+                aria-required="true"
+                [class.is-invalid]="getControl('jobTitle')?.invalid && getControl('jobTitle')?.touched" />
+              <div class="invalid-feedback" *ngIf="getControl('jobTitle')?.errors?.['required']">Job title is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Information -->
+        <div class="mb-4">
+          <h5>Financial Information</h5>
+          <div class="row">
+            <!-- Monthly Income -->
+            <div class="col-md-6 mb-3">
+              <label for="monthlyIncome" class="form-label">Monthly Income <span class="text-danger">*</span></label>
+              <input id="monthlyIncome" type="number" class="form-control" formControlName="monthlyIncome"
+                placeholder="Monthly Income" min="0" aria-required="true"
+                [class.is-invalid]="getControl('monthlyIncome')?.invalid && getControl('monthlyIncome')?.touched" />
+              <div class="invalid-feedback"
+                *ngIf="getControl('monthlyIncome')?.errors && getControl('monthlyIncome')?.touched">
+                <div *ngIf="getControl('monthlyIncome')?.errors?.['required']">Monthly income is required</div>
+                <div *ngIf="getControl('monthlyIncome')?.errors?.['min']">Monthly income must be non-negative</div>
+              </div>
+            </div>
+
+            <!-- Financial Source -->
+            <div class="col-md-6 mb-3">
+              <label for="financialSource" class="form-label">Financial Source <span
+                  class="text-danger">*</span></label>
+              <input id="financialSource" type="number" class="form-control" formControlName="financialSource"
+                placeholder="Financial Source" min="0" aria-required="true"
+                [class.is-invalid]="getControl('financialSource')?.invalid && getControl('financialSource')?.touched" />
+              <div class="invalid-feedback"
+                *ngIf="getControl('financialSource')?.errors && getControl('financialSource')?.touched">
+                <div *ngIf="getControl('financialSource')?.errors?.['required']">Financial source is required</div>
+                <div *ngIf="getControl('financialSource')?.errors?.['min']">Financial source must be non-negative</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Upload-->
+        <div class="mb-4">
+          <label for="imagePath" class="form-label">Profile Image (Optional)</label>
+          <input id="imagePath" type="file" class="form-control" formControlName="imagePath" accept="image/*"
+            (change)="onFileChange($event)" />
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"
+              aria-hidden="true"></span>
+            {{ isLoading ? 'Submitting...' : 'Submit' }}
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header.bg-gradient {
+  background: linear-gradient(135deg, #007bff, #0056b3) !important;
+}
+
+.badge {
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.badge:hover {
+  transform: scale(1.15);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+dl dt {
+  font-size: 0.9rem;
+  color: #6c757d;
+  transition: color 0.2s ease-in-out;
+}
+
+dl dd {
+  font-size: 0.9rem;
+  transition: color 0.2s ease-in-out;
+}
+
+dl dt:hover,
+dl dd:hover {
+  color: #0056b3;
+}
+
+.text-primary {
+  color: #0056b3 !important;
+}
+
+.fs-5 {
+  font-size: 1.25rem !important;
+}
+
+.animate__fadeInUp {
+  animation-duration: 0.6s;
+}
+
+.animate__delay-1s {
+  animation-delay: 0.2s;
+}

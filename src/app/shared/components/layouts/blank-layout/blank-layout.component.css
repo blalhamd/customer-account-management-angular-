@@ -1,0 +1,70 @@
+.landing-bg {
+  background: linear-gradient(135deg, #0d6efd 0%, #70cfff 100%);
+  min-height: 100vh;
+}
+.landing-card {
+  border-radius: 2.5rem;
+  box-shadow: 0 12px 48px rgba(44,62,80,0.10), 0 1.5px 10px rgba(44,62,80,0.03);
+  background: #fff;
+}
+.landing-icon {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.text-gradient {
+  background: linear-gradient(90deg, #1976ed 20%, #0d6efd 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.feature-box {
+  max-width: 260px;
+  background: #f8fafc;
+  border-radius: 1.5rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 1px 6px rgba(44,62,80,0.03);
+  transition: transform 0.2s;
+}
+.feature-box:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(44,62,80,0.09);
+}
+.feature-icon {
+  font-size: 2.2rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+}
+.btn-primary {
+  font-size: 1.2rem;
+  border-radius: 2rem;
+  box-shadow: 0 2px 12px rgba(13, 110, 253, 0.15);
+}
+
+/* Testimonials */
+.testimonial-box {
+  background: #f3f7ff;
+  border-radius: 1.2rem;
+  font-size: 1rem;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: #0d6efd;
+}
+
+@media (max-width: 600px) {
+  .landing-card {
+    padding: 1.2rem !important;
+    border-radius: 1.2rem;
+  }
+  h1, h2 {
+    font-size: 1.3rem;
+  }
+  .feature-box {
+    max-width: 100%;
+    padding: 1rem 0.5rem;
+  }
+}

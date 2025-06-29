@@ -1,0 +1,65 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center text-primary mb-4">Open a Current Account</h2>
+
+          <form [formGroup]="model" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Currency Type -->
+            <div class="mb-3">
+              <label for="currencyType" class="form-label">Currency Type</label>
+              <select id="currencyType" formControlName="currencyType" class="form-select"
+                [ngClass]="{ 'is-invalid': model.get('currencyType')?.touched && model.get('currencyType')?.invalid }">
+                <option value="" disabled selected>Select currency</option>
+                <option *ngFor="let currency of currencyTypes" [value]="currency">
+                  {{ currency }}
+                </option>
+              </select>
+              <div *ngIf="model.get('currencyType')?.touched && model.get('currencyType')?.invalid"
+                class="invalid-feedback">
+                Currency is required.
+              </div>
+            </div>
+
+            <!-- depositAmount -->
+            <div class="mb-3">
+              <label for="depositAmount" class="form-label">Deposit Amount</label>
+              <input type="number" id="depositAmount" class="form-control" formControlName="depositAmount"
+                placeholder="Enter Deposit Amount"
+                [ngClass]="{ 'is-invalid': model.get('depositAmount')?.touched && model.get('depositAmount')?.invalid }" />
+              <div *ngIf="model.get('depositAmount')?.touched && model.get('depositAmount')?.invalid"
+                class="invalid-feedback">
+                Deposit Amount must be 0 or more.
+              </div>
+            </div>
+
+            <!-- termInMonths -->
+            <div class="mb-3">
+              <label for="termInMonths" class="form-label">Term In Months</label>
+              <input type="number" id="termInMonths" class="form-control" formControlName="termInMonths"
+                placeholder="Enter required Term In Months"
+                [ngClass]="{ 'is-invalid': model.get('termInMonths')?.touched && model.get('termInMonths')?.invalid }" />
+              <div *ngIf="model.get('termInMonths')?.touched && model.get('termInMonths')?.invalid"
+                class="invalid-feedback">
+                Term In Months must be 0 or more.
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="isLoading">
+                {{ isLoading ? 'Submitting...' : 'Submit' }}
+              </button>
+            </div>
+
+            <!-- Error Message -->
+            <!-- <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+              {{ errorMessage }}
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

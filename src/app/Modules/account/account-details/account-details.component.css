@@ -1,0 +1,10 @@
+.card-header .badge {
+  font-size: 1em;
+  padding: 0.45em 1em;
+}
+.table thead th {
+  vertical-align: middle;
+}
+.table td, .table th {
+  vertical-align: middle;
+}

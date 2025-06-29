@@ -1,0 +1,33 @@
+/* navbar.component.css */
+.navbar {
+  background-color: #333;  /* Matching the footer color */
+}
+
+.nav-link {
+  font-size: 16px;
+  padding: 12px 20px;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* .navbar-nav .nav-link.active {
+  color: #052c65 !important;
+  background: aliceblue;
+} */
+
+.navbar-nav .router-link-active {
+  color: #052c65 !important;
+  background: aliceblue;
+}
+
+#logout {
+  cursor: pointer;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #007bff, #0056b3) !important;
+}

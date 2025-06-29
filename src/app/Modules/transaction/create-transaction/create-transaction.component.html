@@ -1,0 +1,63 @@
+<div class="transaction-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="transaction-form" autocomplete="off">
+    <h2>
+      <span class="icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" fill="#2e7d32" opacity="0.12" />
+          <path d="M16 12l-4-4v3H8v2h4v3l4-4z" fill="#2e7d32" />
+        </svg>
+      </span>
+      New Transaction
+    </h2>
+
+    <div class="form-group">
+      <label for="accountNumber">Account Number</label>
+      <input id="accountNumber" type="text" formControlName="accountNumber"
+        [class.invalid]="accountNumber?.touched && accountNumber?.invalid" placeholder="Enter account number" />
+      <div class="error" *ngIf="accountNumber?.touched && accountNumber?.invalid">
+        Account number is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="transactionType">Transaction Type</label>
+      <select id="transactionType" formControlName="transactionType"
+        [class.invalid]="transactionType?.touched && transactionType?.invalid">
+        <option value="" disabled selected>Select type</option>
+        <option *ngFor="let t of transactionTypes" [value]="t">{{ t }}</option>
+      </select>
+      <div class="error" *ngIf="transactionType?.touched && transactionType?.invalid">
+        Please select a transaction type.
+      </div>
+    </div>
+
+    <!-- Show Amount for Deposit, Withdrawal, Transfer -->
+    <div class="form-group"
+      *ngIf="transactionType?.value === 'Deposit' || transactionType?.value === 'Withdrawal' || transactionType?.value === 'Transfer'">
+      <label for="amount">Amount</label>
+      <input id="amount" type="number" min="1" formControlName="amount"
+        [class.invalid]="amount?.touched && amount?.invalid" placeholder="Enter amount" />
+      <div class="error" *ngIf="amount?.touched && amount?.invalid">
+        Amount is required and should be greater than 0.
+      </div>
+    </div>
+
+    <!-- Show To for Transfer -->
+    <div class="form-group" *ngIf="transactionType?.value === 'Transfer'">
+      <label for="to">Recipient Account Number</label>
+      <input id="to" type="text" formControlName="to" [class.invalid]="to?.touched && to?.invalid"
+        placeholder="Enter recipient's account number" />
+      <div class="error" *ngIf="to?.touched && to?.invalid">
+        Recipient account number is required.
+      </div>
+    </div>
+
+    <button class="submit-btn" type="submit" [disabled]="isLoading">
+      <span *ngIf="isLoading" class="spinner"></span>
+      <span *ngIf="!isLoading">Submit</span>
+    </button>
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

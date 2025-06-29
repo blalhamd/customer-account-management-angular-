@@ -1,0 +1,52 @@
+<div class="account-list-container">
+  <h2>
+    <span class="icon-accounts"></span>
+    Client Accounts
+  </h2>
+
+  <div *ngIf="isLoading" class="loading">
+    <span class="spinner"></span>
+    Loading accounts...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && items.length === 0" class="empty">
+    <em>No accounts found for this client.</em>
+  </div>
+
+  <div *ngIf="!isLoading && items.length > 0" class="accounts-grid">
+    <div *ngFor="let item of items" class="account-card" [ngClass]="item.accountStatus.toLowerCase()">
+      <div class="card-header">
+        <div class="account-number">#{{ item.accountNumber|slice:0:5 }}</div>
+        <div class="badge" *ngIf="item.isSigned">SIGNED</div>
+      </div>
+      <div class="account-details">
+        <div><span class="label">Account ID:</span> {{ item.id|slice:0:5 }}</div>
+        <div><span class="label">Branch:</span> {{ item.branch }}</div>
+        <div><span class="label">Currency:</span> {{ item.currencyType }}</div>
+        <div>
+          <span class="label">Balance:</span>
+          <span [ngClass]="{'positive': item.balance > 0, 'zero': item.balance === 0, 'negative': item.balance < 0}">
+            {{ item.balance | currency: item.currencyType }}
+          </span>
+        </div>
+        <div>
+          <span class="label">Status:</span>
+          <span class="status" [ngClass]="item.accountStatus.toLowerCase()">{{ item.accountStatus }}</span>
+        </div>
+      </div>
+      <button class="details-btn" [routerLink]="['/admin/accounts',item.id]">Details</button>
+    </div>
+  </div>
+
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button (click)="goToPage(1)" [disabled]="pageNumber === 1">&laquo;&laquo;</button>
+    <button (click)="goToPage(pageNumber - 1)" [disabled]="pageNumber === 1">&laquo;</button>
+    <span>Page {{ pageNumber }} of {{ totalPages }}</span>
+    <button (click)="goToPage(pageNumber + 1)" [disabled]="pageNumber === totalPages">&raquo;</button>
+    <button (click)="goToPage(totalPages)" [disabled]="pageNumber === totalPages">&raquo;&raquo;</button>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class="card my-4 shadow-lg border-0 rounded-4">
+  <div class="card-header bg-primary text-white py-3 rounded-top-4">
+    <h4 class="mb-0 fw-semibold">
+      <i class="bi bi-cash-coin me-2"></i>
+      Fixed Deposit Accounts
+    </h4>
+  </div>
+  <div class="card-body p-4">
+
+    <!-- Status & Error Alerts -->
+    <div *ngIf="statusMessage" class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+      {{ statusMessage }}
+      <button type="button" class="btn-close" (click)="statusMessage = ''" aria-label="Close"></button>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+    </div>
+
+    <!-- No data found -->
+    <div *ngIf="!errorMessage && list.length === 0" class="text-center text-muted py-5">
+      <i class="bi bi-info-circle display-6 d-block mb-2"></i>
+      No fixed deposit accounts found.
+    </div>
+
+    <!-- Data table -->
+    <div *ngIf="list.length > 0" class="table-responsive rounded-3">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr class="text-center">
+            <th class=" fw-semibold">#</th>
+            <th class="fw-semibold">Account</th>
+            <th class="fw-semibold">Client ID</th>
+            <th class="fw-semibold">Currency</th>
+            <th class="fw-semibold text-end">Balance</th>
+            <th class="fw-semibold d-none d-lg-table-cell">Branch</th>
+            <th class="fw-semibold">Status</th>
+            <th class="fw-semibold">Signed</th>
+            <th class="fw-semibold text-end d-none d-lg-table-cell">Deposit Amount</th>
+            <th class="fw-semibold text-end d-none d-lg-table-cell">Interest Earned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of list; trackBy:trackById; let i = index" class="align-middl">
+            <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
+            <td class="fw-semibold text-monospace">{{ item.accountNumber | slice:0:8 }}</td>
+            <td class="text-monospace">{{ item.clientId | slice:0:8 }}</td>
+            <td class="text-center">{{ item.currencyType }}</td>
+            <td class="text-center fw-bold">{{ item.balance | currency:item.currencyType:'symbol':'1.2-2' }}</td>
+            <td class="d-none text-center d-lg-table-cell">{{ item.branch }}</td>
+            <td class="text-center">
+              <span class="badge rounded-pill px-3 py-2" [ngClass]="{
+                'bg-success': item.accountStatus === 'Active',
+                'bg-warning text-dark': item.accountStatus === 'Pending',
+                'bg-danger': item.accountStatus === 'Closed'
+              }">
+                <i class="bi" [ngClass]="{
+                  'bi-check-circle': item.accountStatus === 'Active',
+                  'bi-hourglass-split': item.accountStatus === 'Pending',
+                  'bi-x-circle': item.accountStatus === 'Closed'
+                }"></i>
+                <span class="ms-1">{{ item.accountStatus }}</span>
+              </span>
+            </td>
+            <td>
+              <span class="badge text-center rounded-pill px-3 py-2"
+                [ngClass]="item.isSigned ? 'bg-success' : 'bg-danger'">
+                <i class="bi" [ngClass]="item.isSigned ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
+                <span class="ms-1">{{ item.isSigned ? 'Signed' : 'Unsigned' }}</span>
+              </span>
+            </td>
+            <td class="text-center d-none d-lg-table-cell">{{ item.depositAmount | number:'1.2-2' }}</td>
+            <td class="text-center d-none d-lg-table-cell">{{ item.interestEarned | number:'1.2-2' }}</td>
+            <td class="text-end">
+              <div class="dropdown">
+                <button class="btn btn-light border dropdown-toggle" type="button" id="actionMenu{{item.id}}"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i> Actions
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" [attr.aria-labelledby]="'actionMenu' + item.id">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="['/account/fixed', item.id]">
+                      <i class="bi bi-info-circle text-primary"></i>
+                      <span>Details</span>
+                    </a>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center gap-2" (click)="active(item.id)">
+                      <i class="bi bi-check-circle text-success"></i>
+                      <span>Activate</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center gap-2" (click)="signed(item.id)">
+                      <i class="bi bi-pencil-square text-secondary"></i>
+                      <span>Sign</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center gap-2" (click)="close(item.id)">
+                      <i class="bi bi-x-circle text-danger"></i>
+                      <span>Close</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!list.length">
+            <td colspan="11" class="text-center text-muted">No records found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav *ngIf="totalPages > 1" aria-label="Fixed deposit pagination" class="mt-4">
+      <ul class="pagination justify-content-center mb-0">
+        <li class="page-item" [class.disabled]="pageNumber === 1">
+          <button class="page-link" (click)="goToPage(pageNumber - 1)" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+        <li class="page-item" *ngFor="let p of [].constructor(totalPages); let idx = index"
+          [class.active]="pageNumber === idx + 1">
+          <button class="page-link" (click)="goToPage(idx + 1)">{{ idx + 1 }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="pageNumber === totalPages">
+          <button class="page-link" (click)="goToPage(pageNumber + 1)" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

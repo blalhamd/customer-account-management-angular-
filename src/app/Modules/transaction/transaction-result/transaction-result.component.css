@@ -1,0 +1,102 @@
+.transaction-result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  background: linear-gradient(120deg,#e0e7ff 0%,#fff 100%);
+}
+
+.transaction-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(40,80,160,0.12);
+  padding: 32px 40px 28px 40px;
+  max-width: 420px;
+  width: 100%;
+  transition: box-shadow 0.2s;
+}
+
+.transaction-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+  gap: 22px;
+}
+
+.icon-container {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2fa;
+  font-size: 2rem;
+}
+
+.icon-container.deposit { background: #dcfce7; }
+.icon-container.withdrawal { background: #fee2e2; }
+.icon-container.transfer { background: #fef9c3; }
+.icon-container.payment { background: #e0e7ff; }
+.icon-container.query { background: #f3f4f6; }
+.icon-container.fee { background: #fff7ed; }
+
+.fa.deposit { color: #16a34a; }
+.fa.withdrawal { color: #dc2626; }
+.fa.transfer { color: #ca8a04; }
+.fa.payment { color: #2563eb; }
+.fa.query { color: #6b7280; }
+.fa.fee { color: #ea580c; }
+
+.transaction-type {
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.transaction-id {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.transaction-details {
+  margin-top: 12px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 1.13rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.amount {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.discount {
+  color: #ea580c;
+}
+
+.total-row .total {
+  color: #16a34a;
+  font-weight: bold;
+  font-size: 1.23rem;
+}
+
+.no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 1.3rem;
+  margin-top: 4rem;
+  gap: 10px;
+}
